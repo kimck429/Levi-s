@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Levi's Product</title>
+    <style>
+   /* =========================
+   Levi's — Products Page (간격 수정 완전판)
+   ========================= */
+
+    /* ---------- 기본 세팅 ---------- */
+    html, body {
+      height: auto;
+      min-height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: auto;
+      background: #fff;
+      color: #222;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    body {
+      position: relative;
+      text-align: center;
+      height: 100vh;         /* ✅ 화면 높이에 딱 맞춤 */
+      overflow: hidden;      /* ✅ 페이지 스크롤 제거 */
+      display: flex;         /* 아래로 쌓이게 */
+      flex-direction: column;
+      padding-top: 140px;    /* 위 여백 유지 */
+      padding-bottom: 0;     /* 하단 여백은 없음 (아이콘을 fixed로 고정할 거라 필요 X) */
+    }
+    /* 회색 프레임 */
+    body::before {
+      content: "";
+      position: fixed;          /* ✅ 뷰포트 기준으로 고정 */
+      inset: 12px;              /* top/left/right/bottom 한 번에 */
+      border: 2px solid #7a7a7a;
+      border-radius: 6px;
+      pointer-events: none;
+      z-index: 9999;            /* 로고/콘텐츠 위로 안전하게 */
+    }
+
+    /* 반응형(소개/메인과 동일하게 여백 축소) */
+    @media (max-width: 860px) {
+      body::before { inset: 8px; }
+    }
+
+    /* ---------- 상단 로고 ---------- */
+    .logo {
+      display: block;
+      text-align: center;
+      margin-top: -50px;
+    }
+    .logo img {
+      display: block;
+      margin: 0 auto 24px;
+      position: static;
+      width: 200px;
+      height: auto;
+      transition: transform .25s ease, opacity .25s ease;
+    }
+    .logo img:hover {
+      transform: scale(1.04);
+      opacity: .95;
+    }
+
+    /* ---------- 폭 제한 ---------- */
+    :root {
+      --container: 880px;
+      --accent: #c41230;
+    }
+    .container, h1, p, ul, .social-icons {
+      max-width: var(--container);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    /* ---------- 제목 ---------- */
+    h1 {
+      margin: 8px auto 22px; /* 소개 페이지와 동일 */
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 40px;
+      font-weight: 700;
+      font-style: italic;
+      text-align: center;
+      letter-spacing: .2px;
+    }
+
+    /* ---------- 본문 ---------- */
+    .intro {
+      margin: 12px auto;  /* 소개 페이지 p와 동일 */
+      font-size: 16px;
+      color: #222;
+      line-height: 1.7;   /* 조금 더 여유 있게 */
+    }
+
+    /* ---------- 제품 리스트 ---------- */
+    /* ---------- 제품 리스트 (버튼 스타일) ---------- */
+    .product-list {
+      list-style: none;
+      padding: 0;
+      margin: 60px auto 0;              /* ✅ 위로 40px 올림 (100 → 60) */
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .product-list li {
+      margin: 0;
+    }
+
+    .product-list a {
+      display: inline-block;
+      width: 190px;                     /* ✅ 두 버튼 동일한 가로폭 (통일) */
+      height: 44px;                     /* ✅ 본문 페이지 버튼과 동일한 높이 */
+      line-height: 44px;                /* 텍스트 수직 중앙정렬 */
+      border: 1.5px solid var(--accent);
+      border-radius: 999px;
+      color: #222;
+      background: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 15px;
+      letter-spacing: 0.3px;
+      transition: all .25s ease;
+    }
+
+    .product-list a:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* ---------- SNS 아이콘 ---------- */
+    .social-icons {
+      position: fixed;       /* ✅ 화면 기준 고정 */
+      bottom: 50px;          /* 프레임 안쪽 60px */
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      margin: 0;             /* 여백 제거 (고정 배치 정확도 ↑) */
+      width: 100%;
+      z-index: 1000;
+    }
+    .social-icons img {
+      width: 28px;
+      height: 28px;
+      transition: transform .25s ease, opacity .25s ease;
+    }
+    .social-icons img:hover {
+      transform: scale(1.12);
+      opacity: .9;
+    }
+
+    /* ---------- 반응형 ---------- */
+    @media (max-width: 860px) {
+      body { padding-top: 120px; padding-bottom: 100px; }
+      body::before { top: 8px; left: 8px; right: 8px; bottom: 8px; }
+      .logo img { width: 140px; }
+      h1 { font-size: 32px; }
+    }
+    @media (max-width: 520px) {
+      :root { --container: 94vw; }
+      h1 { font-size: 28px; }
+      .product-list a { padding: 10px 18px; }
+    }
+
+    /* 새로 추가 */
+    .container { 
+      flex: 1;                /* 본문이 남는 세로공간을 차지 */
+    }
+
+    html { height:100%; overflow:hidden; }        /* ← 문서 전체 스크롤 잠금 */
+    body {
+      height:100vh;                                /* 뷰포트 딱 맞추기 */
+      overflow:hidden;                             /* 바디 스크롤 차단 */
+      display:flex; flex-direction:column;
+      padding-bottom:0;                            /* 하단 여백은 사용 안 함 */
+    }
+    .container { flex:1; min-height:0; }           /* ← 플렉스 오버플로우로 생기는 1~2px 스크롤 방지 */
+    * { box-sizing:border-box; }                   /* 경계계산 안정화(화면 넘침 예방) */
+
+    .product-list { margin:60px auto 0; }          /* 하단 마진 없애기 */
+    </style>
+  </head>
+  <body>
+    <div class="logo">
+      <a href="./01_본문.html">
+        <img src="./logo.png" width="200" alt="Levi's Logo">
+      </a>
+    </div>
+
+    <div class="container">
+
+      <h1>Levi's Products</h1>
+
+      <p class="intro">
+        리바이스는 150년이 넘는 시간 동안 ‘진정한 오리지널’의 가치를 지켜왔습니다.  
+        <br>시대마다 새로운 해석을 더하며, 청바지를 단순한 작업복이 아닌 문화의 언어로 바꿔왔습니다.  
+        <br>오리지널 청바지 501을 비롯한 대표 제품, 그리고 리바이스 빈티지 LVC 라인까지
+        <br>브랜드의 역사와 정신이 담긴 다양한 제품을 만나보세요.
+      </p>
+
+      <ul class="product-list">
+        <li><a href="./05_상의.html">Iconic Top</a></li>
+        <li><a href="./06_하의.html">Iconic Bottom</a></li>
+      </ul>
+
+    </div>
+
+    <!-- SNS 아이콘 영역 -->
+        <div class="social-icons">
+            <a href="https://www.instagram.com/levis/" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+            </a>
+            <a href="https://www.facebook.com/Levis/" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+            </a>
+            <a href="https://www.youtube.com/user/levis" target="_blank">
+                <img src="https://i.postimg.cc/mDxH7m0s/youtube-color-svgrepo-com.png" alt="YouTube">
+            </a>
+        </div>
+  </body>
+</html>
