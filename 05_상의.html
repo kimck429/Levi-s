@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>Iconic Tops</title>
+        <style>
+        /* ---------- 기본 세팅 ---------- */
+        html, body{
+        height:auto; min-height:100%;
+        margin:0; padding:0; overflow:auto;
+        background:#fff; color:#222;
+        font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+        line-height:1.65;
+        }
+        body{
+        position:relative;
+        text-align:center;
+        padding-top:140px;       /* 상단 로고와 겹치지 않게 */
+        padding-bottom:0px;    /* 소개/캠페인과 동일 하단 여백 */
+        display:flex; flex-direction:column; min-height:100vh;
+        }
+
+        /* 회색 프레임 (뷰포트 고정) */
+        body::before{
+        content: "";
+        position: absolute;    /* ✅ 고정 → 절대 배치 */
+        top: 12px;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;          /* ✅ 문서 끝까지 따라감 (스크롤로 하단 보임) */
+        border: 2px solid #7a7a7a;
+        border-radius: 6px;
+        pointer-events: none;
+        z-index: 0;            /* ✅ 콘텐츠 아래에 배치 */
+        }
+        @media (max-width:860px){ body::before{ inset:8px; } }
+
+        /* ---------- 폭 제한 ---------- */
+        :root{ --container: 880px; --accent:#c41230; }
+        .container, h1, h3, p, .social-icons{
+        max-width:var(--container);
+        margin-left:auto; margin-right:auto;
+        padding-left:24px; padding-right:24px;
+        }
+
+        /* ---------- 상단 로고 ---------- */
+        .container > a:first-of-type img{
+        display: block;
+        margin: -50px auto 24px; /* 👈 위로 30px 올림 (기존 0 → -30) */
+        width: 200px;
+        height: auto;
+        transition: transform .25s ease, opacity .25s ease;
+        }
+        .container > a:first-of-type img:hover{ transform:scale(1.04); opacity:.95; }
+
+        /* ---------- 제목/소제목 ---------- */
+        h1{
+        margin-top: 40px;   /* 👈 기존보다 약간 아래로 */
+        margin-bottom: 22px; /* 소개/캠페인 페이지 리듬 유지 */
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 40px;
+        font-weight: 700;
+        font-style: italic;
+        text-align: center;
+        letter-spacing: .2px;
+        }
+        h3{
+        margin:100px auto 14px;       /* 소개 페이지 h2와 동일 리듬 */
+        font-size:22px; font-weight:800; letter-spacing:.2px; position:relative;
+        }
+        h3::after{
+        content:""; display:block; width:96px; height:3px;
+        background:var(--accent); margin:2px auto 0; border-radius:2px;
+        }
+
+        /* ---------- 본문 ---------- */
+        p{ margin:12px auto; font-size:16px; }
+
+        /* ---------- 제품 이미지 (링크된 이미지들만) ---------- */
+        /* 로고 링크 다음의 외부 링크 이미지들만 타겟팅 */
+        .container a[href^="https://www.levi.com"] img{
+        display:block;
+        margin:24px auto 28px;    /* 소개 페이지 이미지 간격과 동일(위24/아래28) */
+        width:40%; height:auto;   /* 너가 HTML에 준 20% 유지 */
+        border-radius:10px;       /* 소개 페이지와 동일 둥근 모서리 */
+        box-shadow:0 6px 18px rgba(0,0,0,.08);
+        border:1px solid #eee;
+        transition: transform .25s ease, opacity .25s ease;  /* ✅ 부드러운 전환 */
+        }
+
+        /* 👇 마우스 갖다대면 살짝 작아짐 */
+        .container a[href^="https://www.levi.com"] img:hover {
+        transform: scale(0.94);        /* ✅ 6% 정도 축소 */
+        opacity: 0.9;                  /* 살짝 어두워져서 깊이감 생김 */
+        }
+
+        /* ---------- SNS 아이콘 (하단 위치 동일) ---------- */
+        /* ===== SNS 아이콘 하단 고정처럼 자연스럽게 내림 ===== */
+        /* 화면 고정 해제 + 하단으로 자연스럽게 내려가게 */
+        .social-icons {
+        position: static;                 /* ✅ 고정 해제 */
+        display: flex;
+        justify-content: center;
+        gap: 22px;
+        margin-top: 160px;                /* 위쪽 여백 (원하면 140~180px로 미세조정) */
+        margin-bottom: 50px;              /* 프레임 하단과의 여유 */
+        }
+        .social-icons img {
+        width: 28px;
+        height: 28px;
+        transition: transform .25s ease, opacity .25s ease;
+        }
+        .social-icons img:hover {
+        transform: scale(1.12);
+        opacity: .9;
+        }
+
+        .container { 
+        flex: 1;                          /* ✅ 남는 세로공간 채워서 SNS를 아래로 밀기 */
+        }
+
+        /* ---------- 반응형 ---------- */
+        @media (max-width:860px){
+        body{ padding-top:120px; padding-bottom:100px; }
+        h1{ font-size:32px; }
+        .container > a:first-of-type img{ width:140px; }
+        }
+        @media (max-width:520px){
+        :root{ --container:94vw; }
+        h1{ font-size:28px; }
+        /* 모바일에서 제품 이미지는 한 줄 폭에 더 어울리게 */
+        .container a[href^="https://www.levi.com"] img{ width:55%; }
+        }
+ 
+        </style>
+    </head>
+    <body>
+        <div class="container">
+
+            <a href="./01_본문.html">
+                <img src="./logo.png" width="200" alt="리바이스 로고">
+            </a>
+
+            <h1>Iconic Top</h1>
+
+            <h3>LVC 1936 타입 I 자켓</h3>
+
+            <a href="https://www.levi.com">
+                <img src="./jacket.webp" width="20%" alt="LVC 1936 타입 I 자켓">
+            </a>
+
+            <p>
+                LEVI'S 1936 타입 I 자켓 만큼 미국의 노동력을 상징하는 옷은 없습니다.
+                <br>견고한 셀비지 데님의 레귤러 트러커는 오랫동안 미국 노동자들이 입는 비공식 유니폼으로 여겨져 왔습니다.
+                <br>앞부분의 플리츠 2개, 가슴 포켓 1개, 허리 사이즈를 조절할 수 있는 구리 신치백,
+                <br>로트 넘버 506이 새겨진 Two Horse 가죽 백패치, 품질을 약속하는 XX 를 조합한 라벨이 특징입니다.
+                <br>1936년은 대문자 빅E 레드 탭이 Levi&co. 제품에 부착된 첫 해이기도 합니다.
+            </p>
+
+            <h3>LVC 1955 쇼트혼 소우투스 셔츠</h3>
+
+            <a href="https://www.levi.com" target="_blank">
+                <img src="./shirt.webp" width="20%" alt="LVC 1955 쇼트혼 소우투스 셔츠">
+            </a>
+        
+            <p>
+                Levi's의 LVC 1955 쇼트혼 소우투스 셔츠는 Levi’s® Vintage Clothing 라인의 상징적인 제품입니다.
+                <br>과거 시대의 핏, 원단, 디테일을 재현하며, 아카이브를 통해 150년간의 역사를 재조명합니다.
+                <br>레귤러 핏, 자개 스냅 버튼, 웨스턴 요크 디테일, 아이코닉한 쇼트혼 라벨이 특징입니다.
+                <br>100% 유기농 면으로 제작된 프리미엄 일본 원단을 사용했으며,
+                <br>시간이 지나며 자연스러운 색감 변화와 빈티지한 질감을 느낄 수 있습니다.
+            </p>
+
+            <h3>LVC 베이 메도우 스웻셔츠</h3>
+
+            <a href="https://www.levi.com" target="_blank">
+                <img src="./sweatshirt.webp" width="20%" alt="LVC 베이 메도우 스웻셔츠">
+            </a>
+            
+            <p>
+                베이 메도우 크루 스웻셔츠는 1930년대 오리지널 제품을 복각한 모델입니다.
+                <br>부드러운 mele 플리스 소재로 제작되어 착용감이 뛰어나며, V넥 립브 카라와 립브 소매, 오리지널 베이 메도우 라벨이 특징입니다.
+                <br>클래식한 디자인 속에서 편안함과 레트로 감성을 동시에 느낄 수 있습니다.
+            </p>
+
+            <h3>LVC 1950S 스포츠웨어 티셔츠</h3>
+
+            <a href="https://www.levi.com" target="_blank">
+                <img src="./t-shirt.webp" width="20%" alt="LVC 1950s 스포츠웨어 티셔츠">
+            </a>
+            
+            <p>
+                1950s 스포츠웨어 티셔츠는 Levi’s® Vintage Clothing 컬렉션의 대표 제품 중 하나입니다.
+                <br>여유로운 핏과 반소매 디자인으로, 부드러운 저지 소재가 특징입니다.
+                <br>네모난 가슴 포켓과 Levi’s® 스포츠웨어 라벨이 포인트이며,
+                캐주얼하면서도 클래식한 분위기를 연출할 수 있습니다.
+            </p>
+            
+        </div>
+
+                <!-- SNS 아이콘 영역 -->
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/levis/" target="_blank">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+                    </a>
+                    <a href="https://www.facebook.com/Levis/" target="_blank">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+                    </a>
+                    <a href="https://www.youtube.com/user/levis" target="_blank">
+                        <img src="https://i.postimg.cc/mDxH7m0s/youtube-color-svgrepo-com.png" alt="YouTube">
+                    </a>
+                </div>
+    </body>
+</html>
